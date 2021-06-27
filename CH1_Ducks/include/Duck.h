@@ -8,19 +8,19 @@ public:
     virtual ~QuackBehavior() = default;
 };
 
-class SimpleQuack : QuackBehavior {
+class SimpleQuack : public QuackBehavior {
 public:
     SimpleQuack() {};
     ~SimpleQuack() {};
     void quack() override;
 };
-class MuteQuack : QuackBehavior {
+class MuteQuack : public QuackBehavior {
 public:
     MuteQuack() {};
     ~MuteQuack() {};
     void quack() override;
 };
-class DigiQuack : QuackBehavior {
+class DigiQuack : public QuackBehavior {
 public:
     DigiQuack() {};
     ~DigiQuack() {};
@@ -33,19 +33,19 @@ public:
     virtual void fly() = 0;
     virtual ~FlyBehavior() = default;
 };
-class FlyWithWings : FlyBehavior {
+class FlyWithWings :public FlyBehavior {
 public:
     FlyWithWings() {};
     ~FlyWithWings() {};
     void fly() override;
 };
-class FlyWithRocket : FlyBehavior {
+class FlyWithRocket :public FlyBehavior {
 public:
     FlyWithRocket() {};
     ~FlyWithRocket() {};
     void fly() override;
 };
-class CanNotFly : FlyBehavior {
+class CanNotFly :public FlyBehavior {
 public:
     CanNotFly() {};
     ~CanNotFly() {};
@@ -54,20 +54,18 @@ public:
 
 class Duck {
 public:
-    template<typename T>
-    void setQuack(std::unique_ptr<T> quackInstance);
+    void setQuack(QuackBehavior* quackInstance);
 
-    template<typename T>
-    void setFly(std::unique_ptr<T> flyInstance);
+    void setFly(FlyBehavior* flyInstance);
     void performQuack();
     void performFly();
-    virtual ~Duck() = default;
+    virtual ~Duck();
 private:
-    std::unique_ptr<QuackBehavior> mQuackInstance;
-    std::unique_ptr<FlyBehavior> mFlyInstance;
+    QuackBehavior *mQuackInstance;
+    FlyBehavior *mFlyInstance;
 };
 
-class WildDuck : Duck {
+class WildDuck : public Duck {
 public:
     WildDuck();
 

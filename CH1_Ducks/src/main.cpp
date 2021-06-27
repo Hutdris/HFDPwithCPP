@@ -1,6 +1,9 @@
 #include <Duck.h>
 
+
 int main() {
-    Duck d;
+    WildDuck wd;
+    wd.performFly();
+    wd.performQuack();
     return 0;
 }

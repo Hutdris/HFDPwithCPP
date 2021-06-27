@@ -21,17 +21,23 @@ void CanNotFly::fly() {
 }
 
 
-template<typename T>
-void Duck::setQuack(std::unique_ptr<T> quackInstance) {
+void Duck::setQuack(QuackBehavior* quackInstance) {
     if (quackInstance) {
-        mQuackInstance = std::move(quackInstance);
+        if (mQuackInstance) {
+            delete mQuackInstance;
+            mQuackInstance = nullptr;
+        }
+        mQuackInstance = quackInstance;
     }
 }
 
-template<typename T>
-void Duck::setFly(std::unique_ptr<T> flyInstance) {
+void Duck::setFly(FlyBehavior* flyInstance) {
     if (flyInstance) {
-        mFlyInstance = std::move(flyInstance);
+        if (mFlyInstance) {
+            delete mFlyInstance;
+            mFlyInstance = nullptr;
+        }
+        mFlyInstance = flyInstance;
     }
 }
 
@@ -43,9 +49,23 @@ void Duck::performQuack() {
 void Duck::performFly() {
     if (mFlyInstance) {
         mFlyInstance->fly();
+    } else {
+        std::cout << "No fly instance!" << std::endl;
+    }
+}
+
+Duck::~Duck() {
+    if (mQuackInstance) {
+        delete mQuackInstance;
+    }
+    if (mFlyInstance) {
+        delete mFlyInstance;
     }
 }
 
 WildDuck::WildDuck() {
-    setQuack(std::move(std::unique_ptr<SimpleQuack>()));
+    QuackBehavior* simpleQuack = new SimpleQuack;
+    setQuack(simpleQuack);
+    FlyBehavior* flyWithWings = new FlyWithWings;
+    setFly(flyWithWings);
 }
