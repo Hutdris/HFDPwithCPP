@@ -15,3 +15,5 @@ target_include_directories(CH1_Ducks
     PRIVATE 
         ${PROJECT_SOURCE_DIR}/include
 )
+
+set_property(TARGET CH1_Ducks PROPERTY CXX_STANDARD 11)
