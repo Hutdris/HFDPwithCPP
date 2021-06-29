@@ -69,6 +69,9 @@ private:
 class WildDuck : public Duck {
 public:
     WildDuck();
-
 };
 
+class CallDuck : public Duck {
+public:
+    CallDuck();
+};

@@ -55,3 +55,9 @@ WildDuck::WildDuck() {
     pFlyBehavior flyWithWings = std::make_shared<FlyWithWings>();
     setFly(flyWithWings);
 }
+
+
+CallDuck::CallDuck() {
+    setQuack(std::make_shared<DigiQuack>());
+    setFly(std::make_shared<CanNotFly>());
+}
