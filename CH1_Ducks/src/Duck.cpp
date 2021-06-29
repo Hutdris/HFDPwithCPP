@@ -21,22 +21,14 @@ void CanNotFly::fly() {
 }
 
 
-void Duck::setQuack(QuackBehavior* quackInstance) {
+void Duck::setQuack(pQuackBehavior quackInstance) {
     if (quackInstance) {
-        if (mQuackInstance) {
-            delete mQuackInstance;
-            mQuackInstance = nullptr;
-        }
         mQuackInstance = quackInstance;
     }
 }
 
-void Duck::setFly(FlyBehavior* flyInstance) {
+void Duck::setFly(pFlyBehavior flyInstance) {
     if (flyInstance) {
-        if (mFlyInstance) {
-            delete mFlyInstance;
-            mFlyInstance = nullptr;
-        }
         mFlyInstance = flyInstance;
     }
 }
@@ -55,17 +47,11 @@ void Duck::performFly() {
 }
 
 Duck::~Duck() {
-    if (mQuackInstance) {
-        delete mQuackInstance;
-    }
-    if (mFlyInstance) {
-        delete mFlyInstance;
-    }
 }
 
 WildDuck::WildDuck() {
-    QuackBehavior* simpleQuack = new SimpleQuack;
+    pQuackBehavior simpleQuack = std::make_shared<SimpleQuack>();
     setQuack(simpleQuack);
-    FlyBehavior* flyWithWings = new FlyWithWings;
+    pFlyBehavior flyWithWings = std::make_shared<FlyWithWings>();
     setFly(flyWithWings);
 }
