@@ -56,11 +56,12 @@ using pQuackBehavior = std::shared_ptr<QuackBehavior>;
 using pFlyBehavior = std::shared_ptr<FlyBehavior>;
 class Duck {
 public:
-    void setQuack(pQuackBehavior quackInstance);
-    void setFly(pFlyBehavior flyInstance);
     void performQuack();
     void performFly();
     virtual ~Duck();
+protected:
+    void setQuack(pQuackBehavior quackInstance);
+    void setFly(pFlyBehavior flyInstance);
 private:
     std::shared_ptr<QuackBehavior> mQuackInstance;
     std::shared_ptr<FlyBehavior> mFlyInstance;
